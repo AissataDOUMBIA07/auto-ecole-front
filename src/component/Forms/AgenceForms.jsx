@@ -1,14 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { TextField, Button } from "@mui/material";
 import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function AgenceForms() {
-  const [emailError, setEmailError] = useState(false);
-  const [passwordError, setPasswordError] = useState(false);
-  const [fullnameError, setFullnameError] = useState(false);
-  const [adresseError, setAdresseError] = useState(false);
-  const [phoneError, setPhoneError] = useState(false);
-  const [inmmatriculationError, setInmmatriculationError] = useState(false);
 
   const [agenceData, setAgenceData] = useState({
     fullname: "",
@@ -39,14 +35,25 @@ function AgenceForms() {
 
   const handleAgenceSubmit = async (e) => {
     e.preventDefault();
+
     try {
       const response = await axios.post(
         "http://localhost:8000/api/agence/",
         agenceData,
         { withCredentials: true } // Assurez-vous d'inclure les cookies avec les requêtes
       );
+      toast.success("Données soumises avec succès!");
+      setAgenceData({
+        fullname: "",
+        email: "",
+        password: "",
+        adresse: "",
+        phone: "",
+        inmmatriculation: "",
+      });
       console.log("agence data submitted successfully:", response.data);
     } catch (error) {
+      toast.error("Erreur lors de la soumission des données!");
       console.error("Error submitting agence data:", error);
     }
   };
@@ -66,7 +73,6 @@ function AgenceForms() {
           fullWidth
           value={agenceData.email}
           onChange={handleChange}
-          error={emailError}
         />
         <TextField
           label="Password"
@@ -77,7 +83,6 @@ function AgenceForms() {
           name="password"
           value={agenceData.password}
           onChange={handleChange}
-          error={passwordError}
           fullWidth
           sx={{ mb: 3 }}
         />
@@ -90,7 +95,6 @@ function AgenceForms() {
           name="fullname"
           value={agenceData.fullname}
           onChange={handleChange}
-          error={fullnameError}
           fullWidth
           sx={{ mb: 3 }}
         />
@@ -103,7 +107,6 @@ function AgenceForms() {
           name="adresse"
           value={agenceData.adresse}
           onChange={handleChange}
-          error={adresseError}
           fullWidth
           sx={{ mb: 3 }}
         />
@@ -116,7 +119,6 @@ function AgenceForms() {
           name="phone"
           value={agenceData.phone}
           onChange={handleChange}
-          error={phoneError}
           fullWidth
           sx={{ mb: 3 }}
         />
@@ -129,13 +131,13 @@ function AgenceForms() {
           name="inmmatriculation"
           value={agenceData.inmmatriculation}
           onChange={handleChange}
-          error={inmmatriculationError}
           fullWidth
           sx={{ mb: 3 }}
         />
         <Button variant="outlined" color="secondary" type="submit">
           Ajouter
         </Button>
+        <ToastContainer />
       </form>
     </div>
   );

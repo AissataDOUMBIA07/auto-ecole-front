@@ -1,95 +1,112 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { TextField, Button } from "@mui/material";
+import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css"
 
 function PermisForms() {
-  const [type, setType] = useState("");
-  const [date, setDate] = useState("");
-  const [agence_id, setAgenceId] = useState("");
-  const [client_id, setClientId] = useState("");
+  const [permisData, setPermisData] = useState({
+    type: "",
+    date: "",
+    agence_id: "",
+    client_id: "",
+  });
 
-  const [typeError, setTypeError] = useState(false);
-  const [dateError, setDateError] = useState(false);
-  const [agence_idError, setAgenceIdError] = useState(false);
-  const [client_idError, setClientIdError] = useState(false);
+  useEffect(() => {
+    const fetchCsrfToken = async () => {
+      try {
+        await axios.get("http://localhost:8000/sanctum/csrf-cookie", {
+          withCredentials: true,
+        });
+      } catch (error) {
+        console.error("Error fetching CSRF token:", error);
+      }
+    };
+    fetchCsrfToken();
+  }, []);
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setPermisData({ ...permisData, [name]: value });
+  };
 
-    setTypeError(false);
-    setDateError(false);
-    setAgenceIdError(false);
-    setClientIdError(false);
+  const handlePermisSubmit = async (e) => {
+    e.preventDefault();
 
-    if (type === "") {
-      setTypeError(true);
-    }
-    if (date === "") {
-      setDateError(true);
-    }
-    if (agence_id === "") {
-      setAgenceIdError(true);
-    }
-    if (client_id === "") {
-      setClientIdError(true);
-    }
-    if (type && date && agence_id && client_id) {
-      console.log(type, date, agence_id, client_id);
+    try {
+      const response = await axios.post(
+        "http://localhost:8000/api/permis/",
+        permisData,
+        { withCredentials: true } // Assurez-vous d'inclure les cookies avec les requêtes
+      );
+      toast.success("Données soumises avec succès!");
+      setPermisData({
+        type: "",
+        date: "",
+        agence_id: "",
+        client_id: "",
+      });
+      console.log("permis data submitted successfully:", response.data);
+    } catch (error) {
+      toast.error("Erreur lors de la soumission des données!");
+      console.error("Error submitting permis data:", error);
     }
   };
   return (
-    <form autoComplete="off" onSubmit={handleSubmit}>
+    <form autoComplete="off" onSubmit={handlePermisSubmit}>
       <h2>Permis Form</h2>
       <TextField
         label="Type"
-        onChange={(e) => setType(e.target.value)}
+        onChange={handleChange}
         required
         variant="outlined"
         color="secondary"
         type="text"
-        value={type}
-        error={typeError}
+        name="type"
+        value={permisData.type}
         fullWidth
         sx={{ mb: 3 }}
       />
       <TextField
         label="Date"
-        onChange={(e) => setDate(e.target.value)}
+        onChange={handleChange}
         required
         variant="outlined"
         color="secondary"
         type="date"
+        name="date"
         sx={{ mb: 3 }}
         fullWidth
-        value={date}
-        error={dateError}
+        value={permisData.date}
       />
       <TextField
         label="Agence"
-        onChange={(e) => setAgenceId(e.target.value)}
+        onChange={handleChange}
         required
         variant="outlined"
         color="secondary"
         type="text"
-        value={agence_id}
-        error={agence_idError}
+        name="agence_id"
+        value={permisData.agence_id}
         fullWidth
         sx={{ mb: 3 }}
       />
       <TextField
         label="Client"
-        onChange={(e) => setClientId(e.target.value)}
+        onChange={handleChange}
         required
         variant="outlined"
         color="secondary"
         type="text"
-        value={client_id}
-        error={client_idError}
+        name="client_id"
+        value={permisData.client_id}
         fullWidth
         sx={{ mb: 3 }}
       />
       <Button variant="outlined" color="secondary" type="submit">
         Ajouter
       </Button>
+      <ToastContainer/>
     </form>
   );
 }

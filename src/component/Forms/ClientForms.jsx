@@ -1,119 +1,129 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect } from 'react'
 import { TextField,  Button } from "@mui/material";
+import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 
 
 function ClientForms() {
-  const [fullname, setFullname] = useState("")
-        const [conatct, setConatct] = useState("")
-        const [adresse, setAdresse] = useState("")
-        const [age, setAge] = useState("")
-        const [agence_id, setAgenceId] = useState("")
+  const [clientData, setClientData] = useState({
+    fullname: "",
+    conatct: "",
+    adresse: "",
+    age: "",
+    agence_id: "",
+  });
 
-        const [fullnameError, setFullnameError] = useState(false)
-        const [conatctError, setConatctError] = useState(false)
-        const [adresseError, setAdresseError] = useState(false)
-        const [ageError, setAgeError] = useState(false)
-        const [agence_idError, setAgenceIdError] = useState(false)
-     
-        const handleSubmit = (event) => {
-            event.preventDefault()
-     
-            setFullnameError(false)
-            setConatctError(false)
-            setAdresseError(false)
-            setAgeError(false)
-            setAgenceIdError(false)
-     
+  useEffect(() => {
+    const fetchCsrfToken = async () => {
+      try {
+        await axios.get("http://localhost:8000/sanctum/csrf-cookie", {
+          withCredentials: true,
+        });
+      } catch (error) {
+        console.error("Error fetching CSRF token:", error);
+      }
+    };
+    fetchCsrfToken();
+  }, []);
 
-            if (fullname === '') {
-                setFullnameError(true)
-            }
-            if (conatct === '') {
-              setConatctError(true)
-          }
-            if (adresse === '') {
-                setAdresseError(true)
-            }
-            if (age === '') {
-                setAgeError(true)
-            }
-            if (agence_id === '') {
-                setAgenceIdError(true)
-            }
-            
-            if (fullname && conatct && adresse && age && agence_id) {
-                console.log(fullname, conatct, adresse, age, agence_id)
-            }
-        }
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setClientData({ ...clientData, [name]: value });
+  };
+
+  const handleClientSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await axios.post(
+        "http://localhost:8000/api/clients/",
+        clientData,
+        { withCredentials: true } // Assurez-vous d'inclure les cookies avec les requêtes
+      );
+      toast.success("Données soumises avec succès!");
+      setClientData({
+        fullname: "",
+        conatct: "",
+        adresse: "",
+        age: "",
+        agence_id: "",
+      });
+      console.log("client data submitted successfully:", response.data);
+    } catch (error) {
+      toast.error("Erreur lors de la soumission des données!");
+      console.error("Error submitting client data:", error);
+    }
+  };
         
 
   return (
     <div>
-      <form autoComplete="off" onSubmit={handleSubmit}>
+      <form autoComplete="off" onSubmit={handleClientSubmit}>
         <h2>Client Form</h2>
              <TextField 
                 label="Nom Complet"
-                onChange={e => setFullname(e.target.value)}
+                onChange={handleChange}
                 required
                 variant="outlined"
                 color="secondary"
                 type="text"
-                value={fullname}
-                error={fullnameError}
+                name="fullname"
+                value={clientData.fullname}
                 fullWidth
                 sx={{mb: 3}}
              />
               <TextField 
                 label="Contact"
-                onChange={e => setConatct(e.target.value)}
+                onChange={handleChange}
                 required
                 variant="outlined"
                 color="secondary"
                 type="text"
+                name="conatct"
                 sx={{mb: 3}}
                 fullWidth
-                value={conatct}
-                error={conatctError}
+                value={clientData.conatct}
              />
              <TextField 
                 label="Adresse"
-                onChange={e => setAdresse(e.target.value)}
+                onChange={handleChange}
                 required
                 variant="outlined"
                 color="secondary"
                 type="text"
-                value={adresse}
-                error={adresseError}
+                name="adresse"
+                value={clientData.adresse}
                 fullWidth
                 sx={{mb: 3}}
              />
              <TextField 
                 label="Age"
-                onChange={e => setAge(e.target.value)}
+                onChange={handleChange}
                 required
                 variant="outlined"
                 color="secondary"
                 type="text"
-                value={age}
-                error={ageError}
+                name="age"
+                value={clientData.age}
                 fullWidth
                 sx={{mb: 3}}
              />
              <TextField 
                 label="Agence"
-                onChange={e => setAgenceId(e.target.value)}
+                onChange={handleChange}
                 required
                 variant="outlined"
                 color="secondary"
                 type="text"
-                value={agence_id}
-                error={agence_idError}
+                name="agence_id"
+                value={clientData.agence_id}
                 fullWidth
                 sx={{mb: 3}}
              />
              <Button variant="outlined" color="secondary" type="submit">Ajouter</Button>
-         
+             <ToastContainer />
       </form>
     </div>
   )

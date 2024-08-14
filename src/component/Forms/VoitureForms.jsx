@@ -1,151 +1,153 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import { TextField,  Button } from "@mui/material";
+import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css"
 
 
 function VoitureForms() {
-  const [libelle, setLibelle] = useState("")
-        const [nombreplace, setNombrePlace] = useState("")
-        const [matricule, setMatricule] = useState("")
-        const [marque, setMarque] = useState("")
-        const [agence_id, setAgenceId] = useState("")
-        const [couleur, setCouleur] = useState("")
-        const [personnel_id, setPersonnelId] = useState("")
-
-        const [libelleError, setLibelleError] = useState(false)
-        const [nombreplaceError, setNombrePlaceError] = useState(false)
-        const [matriculeError, setMatriculeError] = useState(false)
-        const [marqueError, setMarqueError] = useState(false)
-        const [agence_idError, setAgenceIdError] = useState(false)
-        const [couleurError, setCouleurError] = useState(false)
-        const [personnel_idError, setPersonnelIdError] = useState(false)
-     
-        const handleSubmit = (event) => {
-            event.preventDefault()
-     
-            setLibelleError(false)
-            setNombrePlaceError(false)
-            setMatriculeError(false)
-            setMarqueError(false)
-            setAgenceIdError(false)
-            setCouleurError(false)
-            setPersonnelIdError(false)
-     
-
-            if (libelle === '') {
-                setLibelleError(true)
-            }
-            if (nombreplace === '') {
-              setNombrePlaceError(true)
+    const [voitureData, setVoitureData] = useState({
+        libelle: "",
+        nombreplace: "",
+        matricule: "",
+        marque: "",
+        couleur: "",
+        personnel_id: "",
+        agence_id: "",
+      });
+    
+      useEffect(() => {
+        const fetchCsrfToken = async () => {
+          try {
+            await axios.get("http://localhost:8000/sanctum/csrf-cookie", {
+              withCredentials: true,
+            });
+          } catch (error) {
+            console.error("Error fetching CSRF token:", error);
           }
-            if (matricule === '') {
-                setMatriculeError(true)
-            }
-            if (marque === '') {
-                setMarqueError(true)
-            }
-            if (agence_id === '') {
-                setAgenceIdError(true)
-            }
-            if (couleur === '') {
-                setCouleurError(true)
-            }
-            if (personnel_id=== '') {
-                setPersonnelIdError(true)
-            }
-            
-            if (libelle && nombreplace && matricule && marque && agence_id && couleur && personnel_id) {
-                console.log(libelle, nombreplace, matricule, marque, agence_id, couleur, personnel_id)
-            }
+        };
+        fetchCsrfToken();
+      }, []);
+    
+      const handleChange = (e) => {
+        const { name, value } = e.target;
+        setVoitureData({ ...voitureData, [name]: value });
+      };
+    
+      const handleVoitureSubmit = async (e) => {
+        e.preventDefault();
+    
+        try {
+          const response = await axios.post(
+            "http://localhost:8000/api/voitures/",
+            voitureData,
+            { withCredentials: true } // Assurez-vous d'inclure les cookies avec les requêtes
+          );
+          toast.success("Données soumises avec succès!");
+          setVoitureData({
+            libelle: "",
+            nombreplace: "",
+            matricule: "",
+            marque: "",
+            couleur: "",
+            personnel_id: "",
+            agence_id: "",
+          });
+          console.log("voiture data submitted successfully:", response.data);
+        } catch (error) {
+          toast.error("Erreur lors de la soumission des données!");
+          console.error("Error submitting voiture data:", error);
         }
+      };
   return (
-    <form autoComplete="off" onSubmit={handleSubmit}>
+    <form autoComplete="off" onSubmit={handleVoitureSubmit}>
         <h2>Voiture Form</h2>
              <TextField 
                 label="Libelle"
-                onChange={e => setLibelle(e.target.value)}
+                onChange={handleChange}
                 required
                 variant="outlined"
                 color="secondary"
                 type="text"
-                value={libelle}
-                error={libelleError}
+                name="libelle"
+                value={voitureData.libelle}
                 fullWidth
                 sx={{mb: 3}}
              />
               <TextField 
                 label="Nombreplace"
-                onChange={e => setNombrePlace(e.target.value)}
+                onChange={handleChange}
                 required
                 variant="outlined"
                 color="secondary"
                 type="text"
+                name="nombreplace"
                 sx={{mb: 3}}
                 fullWidth
-                value={nombreplace}
-                error={nombreplaceError}
+                value={voitureData.nombreplace}
              />
              <TextField 
                 label="Matricule"
-                onChange={e => setMatricule(e.target.value)}
+                onChange={handleChange}
                 required
                 variant="outlined"
                 color="secondary"
                 type="text"
-                value={matricule}
-                error={matriculeError}
+                name="matricule"
+                value={voitureData.matricule}
                 fullWidth
                 sx={{mb: 3}}
              />
              <TextField 
                 label="Marque"
-                onChange={e => setMarque(e.target.value)}
+                onChange={handleChange}
                 required
                 variant="outlined"
                 color="secondary"
                 type="text"
-                value={marque}
-                error={marqueError}
+                name="marque"
+                value={voitureData.marque}
                 fullWidth
                 sx={{mb: 3}}
              />
              <TextField 
                 label="Agence"
-                onChange={e => setAgenceId(e.target.value)}
+                onChange={handleChange}
                 required
                 variant="outlined"
                 color="secondary"
                 type="text"
-                value={agence_id}
-                error={agence_idError}
+                name="agence_id"
+                value={voitureData.agence_id}
                 fullWidth
                 sx={{mb: 3}}
              />
              <TextField 
                 label="Salle"
-                onChange={e => setCouleur(e.target.value)}
+                onChange={handleChange}
                 required
                 variant="outlined"
                 color="secondary"
                 type="text"
-                value={couleur}
-                error={couleurError}
+                name="couleur"
+                value={voitureData.couleur}
                 fullWidth
                 sx={{mb: 3}}
              />
              <TextField 
                 label="Personnel"
-                onChange={e => setPersonnelId(e.target.value)}
+                onChange={handleChange}
                 required
                 variant="outlined"
                 color="secondary"
                 type="text"
-                value={personnel_id}
-                error={personnel_idError}
+                name="personnel_id"
+                value={voitureData.personnel_id}
                 fullWidth
                 sx={{mb: 3}}
              />
              <Button variant="outlined" color="secondary" type="submit">Ajouter</Button>
-         
+             <ToastContainer/>
     </form>
   )
 }
