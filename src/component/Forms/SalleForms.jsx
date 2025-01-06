@@ -59,22 +59,22 @@ function SalleForms() {
             onChange={handleChange}
             required
             variant="outlined"
-            color="secondary"
+            color="primary"
             type="text"
             name="libelle"
             value={salleData.libelle}
             fullWidth
-            sx={{mb: 3}}
+            sx={{mb: 1}}
          />
           <TextField 
             label="Nombreplace"
             onChange={handleChange}
             required
             variant="outlined"
-            color="secondary"
+            color="primary"
             type="text"
             name="nombreplace"
-            sx={{mb: 3}}
+            sx={{mb: 1}}
             fullWidth
             value={salleData.nombreplace}
          />
@@ -83,14 +83,14 @@ function SalleForms() {
             onChange={handleChange}
             required
             variant="outlined"
-            color="secondary"
+            color="primary"
             type="text"
             name="agence_id"
             value={salleData.agence_id}
             fullWidth
-            sx={{mb: 3}}
+            sx={{mb: 1}}
          />
-         <Button variant="outlined" color="secondary" type="submit">Ajouter</Button>
+         <Button variant="outlined" color="primary" type="submit">Ajouter</Button>
          <ToastContainer/> 
     </form> 
   )

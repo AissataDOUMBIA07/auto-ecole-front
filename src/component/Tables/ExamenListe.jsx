@@ -1,17 +1,53 @@
 import React, {useState, useEffect} from 'react';
 import { DataGrid } from '@mui/x-data-grid';
 import axios from "axios";
+import { IconButton, Modal, Box } from '@mui/material';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 function ExamenListe() {
   const [examenData, setExamenData] = useState([]);
+  const [selectedRow, setSelectedRow] = useState(null);
+
+  const handleEdit = (row) => {
+    setSelectedRow(row);
+  };
+
+  const handleDelete = (id) => {
+    console.log(`Supprimer la voiture avec ID: ${id}`);
+  };
+
+  const handleCloseModal = () => {
+    console.log("top")
+  };
 
   const columns = [
-    { field: "id", headerName: "ID", width: 70 },
     { field: "type", headerName: "Type", width: 130 },
     { field: "lieu", headerName: "Lieu", width: 130 },
     { field: "heure", headerName: "Heure", width: 130 },
     { field: "date", headerName: "Date", width: 130 },
     { field: "agence_id", headerName: "Agence", width: 130 },
+    {
+      field: 'actions',
+      headerName: 'Actions',
+      width: 150,
+      renderCell: (params) => (
+        <>
+          <IconButton
+            color="primary"
+            onClick={() => handleEdit(params.row)}
+          >
+            <EditIcon />
+          </IconButton>
+          <IconButton
+            color="secondary"
+            onClick={() => handleDelete(params.row.id)}
+          >
+            <DeleteIcon />
+          </IconButton>
+        </>
+      ),
+    },
   ];
 
   function getData() {

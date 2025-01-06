@@ -64,22 +64,22 @@ function ExamenForms() {
                 onChange={handleChange}
                 required
                 variant="outlined"
-                color="secondary"
+                color="primary"
                 type="text"
                 name="type"
                 value={examenData.type}
                 fullWidth
-                sx={{mb: 3}}
+                sx={{mb: 1}}
              />
               <TextField 
                 label="Lieu"
                 onChange={handleChange}
                 required
                 variant="outlined"
-                color="secondary"
+                color="primary"
                 type="text"
                 name="lieu"
-                sx={{mb: 3}}
+                sx={{mb: 1}}
                 fullWidth
                 value={examenData.lieu}
              />
@@ -88,38 +88,38 @@ function ExamenForms() {
                 onChange={handleChange}
                 required
                 variant="outlined"
-                color="secondary"
+                color="primary"
                 type="time"
                 name="heure"
                 value={examenData.heure}
                 fullWidth
-                sx={{mb: 3}}
+                sx={{mb: 1}}
              />
              <TextField 
                 label="Date"
                 onChange={handleChange}
                 required
                 variant="outlined"
-                color="secondary"
+                color="primary"
                 type="date"
                 name="date"
                 value={examenData.date}
                 fullWidth
-                sx={{mb: 3}}
+                sx={{mb: 1}}
              />
              <TextField 
                 label="Agence"
                 onChange={handleChange}
                 required
                 variant="outlined"
-                color="secondary"
+                color="primary"
                 type="text"
                 name="agence_id"
                 value={examenData.agence_id}
                 fullWidth
-                sx={{mb: 3}}
+                sx={{mb: 1}}
              />
-             <Button variant="outlined" color="secondary" type="submit">Ajouter</Button>
+             <Button variant="outlined" color="primary" type="submit">Ajouter</Button>
              <ToastContainer/>
       </form>
   )

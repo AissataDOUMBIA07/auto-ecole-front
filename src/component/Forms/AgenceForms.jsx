@@ -5,7 +5,6 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 function AgenceForms() {
-
   const [agenceData, setAgenceData] = useState({
     fullname: "",
     email: "",
@@ -66,10 +65,10 @@ function AgenceForms() {
           label="Email"
           required
           variant="outlined"
-          color="secondary"
+          color="primary"
           type="email"
           name="email"
-          sx={{ mb: 3 }}
+          sx={{ mb: 1 }}
           fullWidth
           value={agenceData.email}
           onChange={handleChange}
@@ -78,63 +77,63 @@ function AgenceForms() {
           label="Password"
           required
           variant="outlined"
-          color="secondary"
+          color="primary"
           type="password"
           name="password"
           value={agenceData.password}
           onChange={handleChange}
           fullWidth
-          sx={{ mb: 3 }}
+          sx={{ mb: 1 }}
         />
         <TextField
           label="Nom Complet"
           required
           variant="outlined"
-          color="secondary"
+          color="primary"
           type="text"
           name="fullname"
           value={agenceData.fullname}
           onChange={handleChange}
           fullWidth
-          sx={{ mb: 3 }}
+          sx={{ mb: 1 }}
         />
         <TextField
           label="Adresse"
           required
           variant="outlined"
-          color="secondary"
+          color="primary"
           type="text"
           name="adresse"
           value={agenceData.adresse}
           onChange={handleChange}
           fullWidth
-          sx={{ mb: 3 }}
+          sx={{ mb: 1 }}
         />
         <TextField
           label="Telephone"
           required
           variant="outlined"
-          color="secondary"
+          color="primary"
           type="text"
           name="phone"
           value={agenceData.phone}
           onChange={handleChange}
           fullWidth
-          sx={{ mb: 3 }}
+          sx={{ mb: 1 }}
         />
         <TextField
           label="Immatriculation"
           required
           variant="outlined"
-          color="secondary"
+          color="primary"
           type="text"
           name="inmmatriculation"
           value={agenceData.inmmatriculation}
           onChange={handleChange}
           fullWidth
-          sx={{ mb: 3 }}
+          sx={{ mb: 1 }}
         />
-        <Button variant="outlined" color="secondary" type="submit">
+        <Button variant="outlined" color="primary" type="submit">
           Ajouter
         </Button>
         <ToastContainer />

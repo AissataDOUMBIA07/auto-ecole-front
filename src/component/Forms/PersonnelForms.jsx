@@ -67,22 +67,22 @@ function PersonnelForms() {
                 onChange={handleChange}
                 required
                 variant="outlined"
-                color="secondary"
+                color="primary"
                 type="email"
                 name="email"
                 value={personnelData.email}
                 fullWidth
-                sx={{mb: 3}}
+                sx={{mb: 1}}
              />
               <TextField 
                 label="Password"
                 onChange={handleChange}
                 required
                 variant="outlined"
-                color="secondary"
+                color="primary"
                 type="password"
                 name="password"
-                sx={{mb: 3}}
+                sx={{mb: 1}}
                 fullWidth
                 value={personnelData.password}
              />
@@ -91,62 +91,62 @@ function PersonnelForms() {
                 onChange={handleChange}
                 required
                 variant="outlined"
-                color="secondary"
+                color="primary"
                 type="text"
                 name="fullname"
                 value={personnelData.fullname}
                 fullWidth
-                sx={{mb: 3}}
+                sx={{mb: 1}}
              />
              <TextField 
                 label="Adresse"
                 onChange={handleChange}
                 required
                 variant="outlined"
-                color="secondary"
+                color="primary"
                 type="text"
                 name="adresse"
                 value={personnelData.adresse}
                 fullWidth
-                sx={{mb: 3}}
+                sx={{mb: 1}}
              />
              <TextField 
                 label="Phone"
                 onChange={handleChange}
                 required
                 variant="outlined"
-                color="secondary"
+                color="primary"
                 type="text"
                 name="phone"
                 value={personnelData.phone}
                 fullWidth
-                sx={{mb: 3}}
+                sx={{mb: 1}}
              />
              <TextField 
                 label="Status"
                 onChange={handleChange}
                 required
                 variant="outlined"
-                color="secondary"
+                color="primary"
                 type="text"
                 name="status"
                 value={personnelData.status}
                 fullWidth
-                sx={{mb: 3}}
+                sx={{mb: 1}}
              />
              <TextField 
                 label="Agence"
                 onChange={handleChange}
                 required
                 variant="outlined"
-                color="secondary"
+                color="primary"
                 type="text"
                 name="agence_id"
                 value={personnelData.agence_id}
                 fullWidth
-                sx={{mb: 3}}
+                sx={{mb: 1}}
              />
-             <Button variant="outlined" color="secondary" type="submit">Ajouter</Button>
+             <Button variant="outlined" color="primary" type="submit">Ajouter</Button>
              <ToastContainer/>
     </form>
   )

@@ -60,22 +60,22 @@ function PermisForms() {
         onChange={handleChange}
         required
         variant="outlined"
-        color="secondary"
+        color="primary"
         type="text"
         name="type"
         value={permisData.type}
         fullWidth
-        sx={{ mb: 3 }}
+        sx={{ mb: 1 }}
       />
       <TextField
         label="Date"
         onChange={handleChange}
         required
         variant="outlined"
-        color="secondary"
+        color="primary"
         type="date"
         name="date"
-        sx={{ mb: 3 }}
+        sx={{ mb: 1 }}
         fullWidth
         value={permisData.date}
       />
@@ -84,26 +84,26 @@ function PermisForms() {
         onChange={handleChange}
         required
         variant="outlined"
-        color="secondary"
+        color="primary"
         type="text"
         name="agence_id"
         value={permisData.agence_id}
         fullWidth
-        sx={{ mb: 3 }}
+        sx={{ mb: 1 }}
       />
       <TextField
         label="Client"
         onChange={handleChange}
         required
         variant="outlined"
-        color="secondary"
+        color="primary"
         type="text"
         name="client_id"
         value={permisData.client_id}
         fullWidth
-        sx={{ mb: 3 }}
+        sx={{ mb: 1 }}
       />
-      <Button variant="outlined" color="secondary" type="submit">
+      <Button variant="outlined" color="primary" type="submit">
         Ajouter
       </Button>
       <ToastContainer/>

@@ -67,22 +67,22 @@ function VoitureForms() {
                 onChange={handleChange}
                 required
                 variant="outlined"
-                color="secondary"
+                color="primary"
                 type="text"
                 name="libelle"
                 value={voitureData.libelle}
                 fullWidth
-                sx={{mb: 3}}
+                sx={{mb: 1}}
              />
               <TextField 
                 label="Nombreplace"
                 onChange={handleChange}
                 required
                 variant="outlined"
-                color="secondary"
+                color="primary"
                 type="text"
                 name="nombreplace"
-                sx={{mb: 3}}
+                sx={{mb: 1}}
                 fullWidth
                 value={voitureData.nombreplace}
              />
@@ -91,62 +91,62 @@ function VoitureForms() {
                 onChange={handleChange}
                 required
                 variant="outlined"
-                color="secondary"
+                color="primary"
                 type="text"
                 name="matricule"
                 value={voitureData.matricule}
                 fullWidth
-                sx={{mb: 3}}
+                sx={{mb: 1}}
              />
              <TextField 
                 label="Marque"
                 onChange={handleChange}
                 required
                 variant="outlined"
-                color="secondary"
+                color="primary"
                 type="text"
                 name="marque"
                 value={voitureData.marque}
                 fullWidth
-                sx={{mb: 3}}
+                sx={{mb: 1}}
              />
              <TextField 
                 label="Agence"
                 onChange={handleChange}
                 required
                 variant="outlined"
-                color="secondary"
+                color="primary"
                 type="text"
                 name="agence_id"
                 value={voitureData.agence_id}
                 fullWidth
-                sx={{mb: 3}}
+                sx={{mb: 1}}
              />
              <TextField 
                 label="Salle"
                 onChange={handleChange}
                 required
                 variant="outlined"
-                color="secondary"
+                color="primary"
                 type="text"
                 name="couleur"
                 value={voitureData.couleur}
                 fullWidth
-                sx={{mb: 3}}
+                sx={{mb: 1}}
              />
              <TextField 
                 label="Personnel"
                 onChange={handleChange}
                 required
                 variant="outlined"
-                color="secondary"
+                color="primary"
                 type="text"
                 name="personnel_id"
                 value={voitureData.personnel_id}
                 fullWidth
-                sx={{mb: 3}}
+                sx={{mb: 1}}
              />
-             <Button variant="outlined" color="secondary" type="submit">Ajouter</Button>
+             <Button variant="outlined" color="primary" type="submit">Ajouter</Button>
              <ToastContainer/>
     </form>
   )

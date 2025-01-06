@@ -67,22 +67,22 @@ function ClientForms() {
                 onChange={handleChange}
                 required
                 variant="outlined"
-                color="secondary"
+                color="primary"
                 type="text"
                 name="fullname"
                 value={clientData.fullname}
                 fullWidth
-                sx={{mb: 3}}
+                sx={{mb: 1}}
              />
               <TextField 
                 label="Contact"
                 onChange={handleChange}
                 required
                 variant="outlined"
-                color="secondary"
+                color="primary"
                 type="text"
                 name="conatct"
-                sx={{mb: 3}}
+                sx={{mb: 1}}
                 fullWidth
                 value={clientData.conatct}
              />
@@ -91,38 +91,38 @@ function ClientForms() {
                 onChange={handleChange}
                 required
                 variant="outlined"
-                color="secondary"
+                color="primary"
                 type="text"
                 name="adresse"
                 value={clientData.adresse}
                 fullWidth
-                sx={{mb: 3}}
+                sx={{mb: 1}}
              />
              <TextField 
                 label="Age"
                 onChange={handleChange}
                 required
                 variant="outlined"
-                color="secondary"
+                color="primary"
                 type="text"
                 name="age"
                 value={clientData.age}
                 fullWidth
-                sx={{mb: 3}}
+                sx={{mb: 1}}
              />
              <TextField 
                 label="Agence"
                 onChange={handleChange}
                 required
                 variant="outlined"
-                color="secondary"
+                color="primary"
                 type="text"
                 name="agence_id"
                 value={clientData.agence_id}
                 fullWidth
-                sx={{mb: 3}}
+                sx={{mb: 1}}
              />
-             <Button variant="outlined" color="secondary" type="submit">Ajouter</Button>
+             <Button variant="outlined" color="primary" type="submit">Ajouter</Button>
              <ToastContainer />
       </form>
     </div>
