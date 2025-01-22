@@ -29,6 +29,7 @@ import Voiture from "../component/Voiture";
 import Dashboard from "../component/Dashboard";
 import Tooltip from "@mui/material/Tooltip";
 import Formation from "../component/Formation";
+import Login from "../component/Login";
 
 const drawerWidth = 240;
 
@@ -124,6 +125,12 @@ function Sidebar() {
             <Agence />
           </Typography>
         );
+        case "Login":
+        return (
+          <Typography paragraph>
+            <Login />
+          </Typography>
+        );
       case "Personnels":
         return (
           <Typography paragraph>
@@ -209,7 +216,7 @@ function Sidebar() {
         </DrawerHeader>
         <Divider />
         <List>
-          {["Agence", "Personnels", "Client", "Formation"].map((text, index) => (
+          {["Login", "Agence", "Personnels", "Client", "Formation"].map((text, index) => (
             <ListItem key={text} disablePadding sx={{ display: "block" }}>
               <ListItemButton
                 sx={{
