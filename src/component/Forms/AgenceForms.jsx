@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { TextField, Button } from "@mui/material";
+import { TextField, Button, Box, Grid } from "@mui/material";
+import { Delete } from "@mui/icons-material";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -10,6 +11,7 @@ function AgenceForms() {
     email: "",
     password: "",
     adresse: "",
+    villes: "",
     phone: "",
     inmmatriculation: "",
   });
@@ -47,6 +49,7 @@ function AgenceForms() {
         email: "",
         password: "",
         adresse: "",
+        villes: "",
         phone: "",
         inmmatriculation: "",
       });
@@ -55,6 +58,22 @@ function AgenceForms() {
       toast.error("Erreur lors de la soumission des données!");
       console.error("Error submitting agence data:", error);
     }
+  };
+
+  // Ajout des images de l'agence dans le modal d'ajout d'agence
+    const [setError] = useState("");
+    const [image, setImage] = useState(null);
+    const handleImageChange = (e) => {
+      const file = e.target.files[0];
+      if (file) {
+          setImage(URL.createObjectURL(file)); // Génère un aperçu de l'image
+      }
+    };
+    // Suppression de l'image selectionner
+    const handleRemoveImage = () => {
+      setImage(null);
+      // setImageFile(null);
+      setError("");
   };
 
   return (
@@ -86,17 +105,36 @@ function AgenceForms() {
           sx={{ mb: 1 }}
         />
         <TextField
-          label="Nom Complet"
-          required
-          variant="outlined"
-          color="primary"
-          type="text"
-          name="fullname"
-          value={agenceData.fullname}
-          onChange={handleChange}
+          type="file"
+          label="Image"
+          name="image"
           fullWidth
-          sx={{ mb: 1 }}
+          margin="normal"
+          variant="outlined"
+          InputLabelProps={{ shrink: true }}
+          inputProps={{ accept: "image/*" }}
+          onChange={handleImageChange}
+          sx={{ mt: 4 }}
         />
+          {image && (
+            <Box style={{ marginTop: 10 }}>
+              <Grid container>
+                <img src={image} alt="Aperçu" width="50" />
+                {/* <br /> */}
+                <Button 
+                    startIcon={<Delete />}
+                    variant="contained" 
+                    color="white" 
+                    onClick={handleRemoveImage} 
+                    sx={{ paddingLeft: 5, mt: 1 }}
+                    // spacing={10}
+                >
+                    Supprimer l'image
+                </Button>
+              </Grid>
+              
+            </Box>
+        )}
         <TextField
           label="Adresse"
           required
@@ -105,6 +143,18 @@ function AgenceForms() {
           type="text"
           name="adresse"
           value={agenceData.adresse}
+          onChange={handleChange}
+          fullWidth
+          sx={{ mb: 1 }}
+        />
+        <TextField
+          label="Ville"
+          required
+          variant="outlined"
+          color="primary"
+          type="text"
+          name="villes"
+          value={agenceData.villes}
           onChange={handleChange}
           fullWidth
           sx={{ mb: 1 }}
